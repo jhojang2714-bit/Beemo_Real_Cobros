@@ -23,193 +23,119 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
 
-    /* ── HEADER ── */
+    #loading-bar { height: 3px; background: var(--accent); width: 0%; transition: width .4s ease; position: fixed; top: 0; left: 0; z-index: 9999; }
+
     header {
       background: var(--card);
       border-bottom: 1px solid var(--border);
-      padding: 16px 24px;
+      padding: 14px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: sticky; top: 0; z-index: 100;
+      position: sticky; top: 3px; z-index: 100;
     }
-    header h1 { font-size: 1.2rem; font-weight: 700; color: var(--accent); letter-spacing: 1px; }
-    header .meta { font-size: 0.75rem; color: var(--muted); }
+    header h1 { font-size: 1.15rem; font-weight: 700; color: var(--accent); letter-spacing: 1px; }
+    #status { font-size: 0.73rem; color: var(--muted); margin-top: 2px; }
     #refresh-btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 16px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: opacity .2s;
+      background: var(--accent); color: #fff; border: none;
+      border-radius: 8px; padding: 8px 16px; cursor: pointer;
+      font-size: 0.85rem; font-weight: 600; transition: opacity .2s;
     }
     #refresh-btn:hover { opacity: .85; }
     #refresh-btn:disabled { opacity: .5; cursor: not-allowed; }
 
-    /* ── FILTERS ── */
     .filters {
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 24px;
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      align-items: center;
+      background: var(--card); border-bottom: 1px solid var(--border);
+      padding: 10px 24px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
     }
     .filters label { font-size: 0.8rem; color: var(--muted); margin-right: 4px; }
     .filters select {
-      background: var(--card2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 6px;
-      padding: 6px 10px;
-      font-size: 0.85rem;
-      cursor: pointer;
-    }
-    #loading-bar {
-      height: 3px;
-      background: var(--accent);
-      width: 0%;
-      transition: width .4s ease;
+      background: var(--card2); border: 1px solid var(--border);
+      color: var(--text); border-radius: 6px; padding: 6px 10px; font-size: 0.85rem; cursor: pointer;
     }
 
-    /* ── MAIN LAYOUT ── */
     main { padding: 24px; max-width: 1600px; margin: 0 auto; }
 
-    /* ── KPI CARDS ── */
+    #error-msg {
+      display: none; background: rgba(239,68,68,.1); border: 1px solid var(--red);
+      border-radius: 8px; padding: 12px 16px; color: var(--red); margin-bottom: 20px; font-size: 0.85rem;
+    }
+
     .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-bottom: 28px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px; margin-bottom: 28px;
     }
     .kpi-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      transition: transform .2s;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px; transition: transform .2s;
     }
     .kpi-card:hover { transform: translateY(-2px); }
-    .kpi-card .label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; }
-    .kpi-card .value { font-size: 1.9rem; font-weight: 700; line-height: 1; }
-    .kpi-card .sub { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+    .kpi-card .label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; }
+    .kpi-card .value { font-size: 1.8rem; font-weight: 700; line-height: 1; }
+    .kpi-card .sub { font-size: 0.72rem; color: var(--muted); margin-top: 5px; }
     .kpi-card.green .value { color: var(--green); }
     .kpi-card.blue .value  { color: var(--accent); }
     .kpi-card.yellow .value{ color: var(--yellow); }
     .kpi-card.red .value   { color: var(--red); }
     .kpi-card.purple .value{ color: var(--purple); }
 
-    /* ── CHARTS GRID ── */
     .charts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-      gap: 20px;
-      margin-bottom: 28px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px; margin-bottom: 28px;
     }
     .chart-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px;
     }
-    .chart-card h3 { font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 14px; }
-    .chart-card canvas { max-height: 280px; }
+    .chart-card h3 { font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 14px; }
+    .chart-card canvas { max-height: 260px; }
 
-    /* ── TABLES ── */
-    .table-section { margin-bottom: 28px; }
-    .table-section h2 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 14px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
+    .section-title {
+      font-size: 1rem; font-weight: 700; color: var(--accent);
+      margin: 28px 0 14px; padding-left: 12px; border-left: 3px solid var(--accent);
     }
-    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
-    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-    thead th {
-      background: var(--card2);
-      color: var(--muted);
-      text-transform: uppercase;
-      font-size: 0.7rem;
-      letter-spacing: .6px;
-      padding: 10px 14px;
-      text-align: left;
-      position: sticky; top: 0;
-      white-space: nowrap;
-    }
-    tbody tr { border-top: 1px solid var(--border); transition: background .15s; }
-    tbody tr:hover { background: var(--card2); }
-    tbody td { padding: 9px 14px; color: var(--text); white-space: nowrap; }
-    .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 600;
-    }
-    .badge.green { background: rgba(34,197,94,.15); color: var(--green); }
-    .badge.yellow { background: rgba(245,158,11,.15); color: var(--yellow); }
-    .badge.red { background: rgba(239,68,68,.15); color: var(--red); }
-    .badge.blue { background: rgba(79,142,247,.15); color: var(--accent); }
-    .badge.purple { background: rgba(168,85,247,.15); color: var(--purple); }
 
-    /* ── ADVISOR TABLE ── */
     .advisor-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 20px;
-      margin-bottom: 28px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px; margin-bottom: 28px;
     }
-    .advisor-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .advisor-card .advisor-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-    .advisor-card .advisor-name { font-weight: 700; font-size: 0.95rem; }
-    .advisor-card .advisor-total { font-size: 1.4rem; font-weight: 700; color: var(--green); }
-    .advisor-bar { height: 6px; border-radius: 3px; background: var(--border); margin-bottom: 10px; overflow: hidden; }
+    .advisor-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+    .advisor-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .advisor-name { font-weight: 700; font-size: 0.95rem; }
+    .advisor-meta { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+    .advisor-total { font-size: 1.35rem; font-weight: 700; color: var(--green); white-space: nowrap; }
+    .advisor-bar { height: 5px; border-radius: 3px; background: var(--border); margin-bottom: 10px; overflow: hidden; }
     .advisor-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--green)); }
 
-    /* ── TABS ── */
-    .tab-nav { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab-nav { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
     .tab-btn {
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      border-radius: 8px;
-      padding: 8px 14px;
-      cursor: pointer;
-      font-size: 0.82rem;
-      transition: all .2s;
+      background: var(--card); border: 1px solid var(--border); color: var(--muted);
+      border-radius: 8px; padding: 7px 14px; cursor: pointer; font-size: 0.82rem; transition: all .2s;
     }
     .tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* ── SECTION DIVIDER ── */
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 32px 0 16px;
-      padding-left: 12px;
-      border-left: 3px solid var(--accent);
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); max-height: 480px; overflow-y: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    thead th {
+      background: var(--card2); color: var(--muted); text-transform: uppercase;
+      font-size: 0.68rem; letter-spacing: .6px; padding: 10px 14px;
+      text-align: left; position: sticky; top: 0; white-space: nowrap; z-index: 1;
     }
+    tbody tr { border-top: 1px solid var(--border); transition: background .15s; }
+    tbody tr:hover { background: var(--card2); }
+    tbody td { padding: 8px 14px; color: var(--text); }
+    .empty-state { text-align: center; padding: 40px; color: var(--muted); font-size: 0.85rem; }
 
-    #error-msg { display: none; background: rgba(239,68,68,.1); border: 1px solid var(--red); border-radius: 8px; padding: 12px 16px; color: var(--red); margin-bottom: 20px; font-size: 0.85rem; }
-    #status { font-size: 0.78rem; color: var(--muted); }
+    .badge {
+      display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 600;
+    }
+    .badge.green  { background: rgba(34,197,94,.15);  color: var(--green); }
+    .badge.yellow { background: rgba(245,158,11,.15); color: var(--yellow); }
+    .badge.red    { background: rgba(239,68,68,.15);  color: var(--red); }
+    .badge.blue   { background: rgba(79,142,247,.15); color: var(--accent); }
+    .badge.purple { background: rgba(168,85,247,.15); color: var(--purple); }
   </style>
 </head>
 <body>
@@ -219,10 +145,10 @@
 <header>
   <div>
     <h1>📊 OPS REC — Real Cobros</h1>
-    <div class="meta" id="status">Cargando datos...</div>
+    <div id="status">Listo para cargar datos</div>
   </div>
   <div style="display:flex;gap:10px;align-items:center;">
-    <span id="last-update" style="font-size:.75rem;color:var(--muted)"></span>
+    <span id="last-update" style="font-size:.73rem;color:var(--muted)"></span>
     <button id="refresh-btn" onclick="loadAllData()">↻ Actualizar</button>
   </div>
 </header>
@@ -235,11 +161,13 @@
     </select>
   </div>
   <div>
-    <label>Tipo cobro:</label>
-    <select id="filter-tipo" onchange="applyFilters()">
+    <label>Resultado llamada:</label>
+    <select id="filter-resultado" onchange="applyFilters()">
       <option value="">Todos</option>
-      <option value="Cobros P2">Cobros P2</option>
-      <option value="Adelanto">Adelanto</option>
+      <option value="Buzon de Voz">Buzón de Voz</option>
+      <option value="Llamada Manual">Llamada Manual</option>
+      <option value="Acuerdo de Pago">Acuerdo de Pago</option>
+      <option value="No Disposicion">No Disposición</option>
     </select>
   </div>
 </div>
@@ -248,11 +176,11 @@
   <div id="error-msg"></div>
 
   <!-- KPIs -->
-  <div class="kpi-grid" id="kpi-grid">
+  <div class="kpi-grid">
     <div class="kpi-card blue"><div class="label">Total Casos</div><div class="value" id="kpi-casos">—</div><div class="sub">Cobros del período</div></div>
     <div class="kpi-card green"><div class="label">Cash Total</div><div class="value" id="kpi-cash">—</div><div class="sub">USD recaudado</div></div>
     <div class="kpi-card yellow"><div class="label">Ticket Promedio</div><div class="value" id="kpi-ticket">—</div><div class="sub">USD por cobro</div></div>
-    <div class="kpi-card purple"><div class="label">% CR 2 Min</div><div class="value" id="kpi-cr2">—</div><div class="sub">Tasa de contacto 2min</div></div>
+    <div class="kpi-card purple"><div class="label">% CR 2 Min</div><div class="value" id="kpi-cr2">—</div><div class="sub">Tasa de contacto</div></div>
     <div class="kpi-card blue"><div class="label">Total Acuerdos</div><div class="value" id="kpi-acuerdos">—</div><div class="sub">Acuerdos negociados</div></div>
     <div class="kpi-card green"><div class="label">Calls Totales</div><div class="value" id="kpi-calls">—</div><div class="sub">Llamadas realizadas</div></div>
     <div class="kpi-card yellow"><div class="label">Calls ≥ 2min</div><div class="value" id="kpi-calls2">—</div><div class="sub">Llamadas efectivas</div></div>
@@ -262,207 +190,245 @@
   <!-- CHARTS -->
   <div class="section-title">Rendimiento por Hora</div>
   <div class="charts-grid">
-    <div class="chart-card">
-      <h3>💰 Cash Total por Hora</h3>
-      <canvas id="chart-cash-hora"></canvas>
-    </div>
-    <div class="chart-card">
-      <h3>📞 % CR 2 Min por Hora</h3>
-      <canvas id="chart-cr2-hora"></canvas>
-    </div>
-    <div class="chart-card">
-      <h3>🤝 Acuerdos vs Mora por Hora</h3>
-      <canvas id="chart-acuerdos-hora"></canvas>
-    </div>
-    <div class="chart-card">
-      <h3>📲 Calls por Hora</h3>
-      <canvas id="chart-calls-hora"></canvas>
-    </div>
+    <div class="chart-card"><h3>💰 Cash Total por Hora</h3><canvas id="chart-cash-hora"></canvas></div>
+    <div class="chart-card"><h3>📞 % CR 2 Min por Hora</h3><canvas id="chart-cr2-hora"></canvas></div>
+    <div class="chart-card"><h3>🤝 Acuerdos vs Mora</h3><canvas id="chart-acuerdos-hora"></canvas></div>
+    <div class="chart-card"><h3>📲 Calls por Hora</h3><canvas id="chart-calls-hora"></canvas></div>
   </div>
 
   <!-- ADVISORS -->
   <div class="section-title">Performance por Advisor</div>
-  <div id="advisor-grid" class="advisor-grid"></div>
+  <div id="advisor-grid" class="advisor-grid">
+    <div class="kpi-card"><div class="empty-state">Cargando advisors...</div></div>
+  </div>
 
-  <!-- TABS con tablas de detalle -->
+  <!-- TABS -->
   <div class="section-title">Detalle por Fuente</div>
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="showTab('tab-calls')">📞 Calls</button>
-    <button class="tab-btn" onclick="showTab('tab-escalados')">🚨 Escalados</button>
-    <button class="tab-btn" onclick="showTab('tab-adelantos')">💳 Adelantos & Upsell</button>
-    <button class="tab-btn" onclick="showTab('tab-zuora')">📄 Inv. Zuora</button>
-    <button class="tab-btn" onclick="showTab('tab-wc')">📋 Fac. WC</button>
-    <button class="tab-btn" onclick="showTab('tab-acuerdos')">📝 H. Acuerdos</button>
+    <button class="tab-btn active" onclick="showTab('tab-calls',this)">📞 Calls</button>
+    <button class="tab-btn" onclick="showTab('tab-escalados',this)">🚨 Escalados</button>
+    <button class="tab-btn" onclick="showTab('tab-adelantos',this)">💳 Adelantos &amp; Upsell</button>
+    <button class="tab-btn" onclick="showTab('tab-zuora',this)">📄 Inv. Zuora</button>
+    <button class="tab-btn" onclick="showTab('tab-wc',this)">📋 Fac. WC</button>
+    <button class="tab-btn" onclick="showTab('tab-acuerdos',this)">📝 H. Acuerdos</button>
   </div>
 
-  <div id="tab-calls" class="tab-content active table-section">
-    <div class="table-wrap" id="table-calls-wrap">
-      <table><thead><tr><th>Fecha</th><th>Asignado</th><th>Tipo Llamada</th><th>Resultado</th><th>Compañía</th></tr></thead>
-      <tbody id="tbody-calls"></tbody></table>
-    </div>
-  </div>
-
-  <div id="tab-escalados" class="tab-content table-section">
+  <div id="tab-calls" class="tab-content active">
     <div class="table-wrap">
-      <table><thead><tr><th>Fecha Apertura</th><th>Id. Caso</th><th>N° Caso</th><th>Propietario</th><th>Comentarios</th></tr></thead>
-      <tbody id="tbody-escalados"></tbody></table>
+      <table>
+        <thead><tr><th>Fecha</th><th>Asignado</th><th>Compañía</th><th>Resultado</th><th>Tipo Llamada</th><th>Duración</th></tr></thead>
+        <tbody id="tbody-calls"><tr><td colspan="6" class="empty-state">Cargando...</td></tr></tbody>
+      </table>
     </div>
   </div>
 
-  <div id="tab-adelantos" class="tab-content table-section">
+  <div id="tab-escalados" class="tab-content">
     <div class="table-wrap">
-      <table><thead><tr><th>Fecha</th><th>N° Caso</th><th>ID Acuerdo</th><th>Acuerdo Id.</th><th>N° Pago</th><th>Invoice</th></tr></thead>
-      <tbody id="tbody-adelantos"></tbody></table>
+      <table>
+        <thead><tr><th>Fecha Apertura</th><th>N° Caso</th><th>Id. Caso</th><th>Propietario</th><th>Comentario</th></tr></thead>
+        <tbody id="tbody-escalados"><tr><td colspan="5" class="empty-state">Cargando...</td></tr></tbody>
+      </table>
     </div>
   </div>
 
-  <div id="tab-zuora" class="tab-content table-section">
+  <div id="tab-adelantos" class="tab-content">
     <div class="table-wrap">
-      <table><thead><tr><th>Fecha Apertura</th><th>Id. Caso</th><th>N° Caso</th><th>Motivo no pago</th></tr></thead>
-      <tbody id="tbody-zuora"></tbody></table>
+      <table>
+        <thead><tr><th>Fecha</th><th>N° Caso</th><th>ID Acuerdo</th><th>N° Pago</th><th>Invoice</th><th>Correo</th></tr></thead>
+        <tbody id="tbody-adelantos"><tr><td colspan="6" class="empty-state">Cargando...</td></tr></tbody>
+      </table>
     </div>
   </div>
 
-  <div id="tab-wc" class="tab-content table-section">
+  <div id="tab-zuora" class="tab-content">
     <div class="table-wrap">
-      <table><thead><tr><th>Fecha Apertura</th><th>Id. Caso</th><th>N° Caso</th><th>Motivo no pago</th></tr></thead>
-      <tbody id="tbody-wc"></tbody></table>
+      <table>
+        <thead><tr><th>Fecha Apertura</th><th>N° Caso</th><th>Id. Caso</th><th>Motivo no pago</th><th>Motivo no Adelanto</th></tr></thead>
+        <tbody id="tbody-zuora"><tr><td colspan="5" class="empty-state">Cargando...</td></tr></tbody>
+      </table>
     </div>
   </div>
 
-  <div id="tab-acuerdos" class="tab-content table-section">
+  <div id="tab-wc" class="tab-content">
     <div class="table-wrap">
-      <table><thead><tr><th>Fecha Modificación</th><th>Fecha</th><th>Modificado por</th><th>Valor Anterior</th><th>Valor Nuevo</th></tr></thead>
-      <tbody id="tbody-acuerdos"></tbody></table>
+      <table>
+        <thead><tr><th>Fecha Apertura</th><th>N° Caso</th><th>Id. Caso</th><th>Motivo no Adelanto/Upgrade</th><th>Motivo no pago</th></tr></thead>
+        <tbody id="tbody-wc"><tr><td colspan="5" class="empty-state">Cargando...</td></tr></tbody>
+      </table>
     </div>
   </div>
 
+  <div id="tab-acuerdos" class="tab-content">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Fecha Modificación</th><th>Modificado por</th><th>Valor Anterior</th><th>Valor Nuevo</th><th>Propietario Acuerdo</th></tr></thead>
+        <tbody id="tbody-acuerdos"><tr><td colspan="5" class="empty-state">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
 </main>
 
 <script>
 // ═══════════════════════════════════════════
-//  CONFIGURACIÓN — cambia solo el SHEET_ID
+//  CONFIGURACIÓN
 // ═══════════════════════════════════════════
 const SHEET_ID = '1xi9z041IHLYHZX-lUUBK3iAIPCdkFnSD9J9hA_ZCdDk';
 
-const SHEETS = {
-  front:     { gid: '0' },
-  advisor:   { gid: '666517428' },
-  zuora:     { gid: '804875347' },
-  wc:        { gid: '302837684' },
-  adelanto:  { gid: '899496714' },
-  acuerdos:  { gid: '73494771' },
-  call:      { gid: '2134815492' },
-  escalado:  { gid: '1395903262' },
+const GIDS = {
+  front:    '0',
+  advisor:  '666517428',
+  zuora:    '804875347',
+  wc:       '302837684',
+  adelanto: '899496714',
+  acuerdos: '73494771',
+  call:     '2134815492',
+  escalado: '1395903262',
 };
 
-const PROXY = 'https://corsproxy.io/?';
-
+// ⚠️ CORS proxy con el formato correcto (?url= en lugar de ?url-directo)
 function csvUrl(gid) {
-  return `${PROXY}https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`;
+  const target = encodeURIComponent(
+    `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`
+  );
+  return `https://corsproxy.io/?url=${target}`;
 }
 
-// Storage for raw data
+// Proxy de respaldo por si corsproxy.io falla
+function csvUrlFallback(gid) {
+  const target = encodeURIComponent(
+    `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`
+  );
+  return `https://api.allorigins.win/raw?url=${target}`;
+}
+
 let rawData = {};
-// Chart instances
 let charts = {};
 
 // ──────────────────────────────────────────
-//  Utilities
+//  Utilidades
 // ──────────────────────────────────────────
 function parseCSV(text) {
-  const result = Papa.parse(text, { header: true, skipEmptyLines: true });
-  return result.data;
+  return Papa.parse(text, { header: true, skipEmptyLines: true }).data;
+}
+
+function cleanNum(s) {
+  if (s === null || s === undefined) return 0;
+  return parseFloat(String(s).replace(/[$,%\s]/g, '').replace(',', '.')) || 0;
 }
 
 function fmt$(n) {
-  const num = parseFloat(String(n).replace(/[$,]/g,'')) || 0;
-  return '$' + num.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  const num = cleanNum(n);
+  return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }
+
 function fmtNum(n) {
-  return (parseInt(String(n).replace(/,/g,'')) || 0).toLocaleString('es-CO');
+  return Math.round(cleanNum(n)).toLocaleString('en-US');
 }
+
 function fmtPct(n) {
-  const v = parseFloat(String(n).replace('%','').replace(',','.')) || 0;
-  return v.toFixed(2) + '%';
+  return cleanNum(n).toFixed(1) + '%';
 }
-function cleanNum(s) { return parseFloat(String(s || '0').replace(/[$,%]/g,'').replace(',','.')) || 0; }
 
 function setProgress(pct) {
   document.getElementById('loading-bar').style.width = pct + '%';
 }
+
 function showError(msg) {
   const el = document.getElementById('error-msg');
-  el.textContent = msg;
+  el.textContent = '⚠️ ' + msg;
   el.style.display = 'block';
 }
 
-// ──────────────────────────────────────────
-//  Fetch one sheet
-// ──────────────────────────────────────────
-async function fetchSheet(key) {
-  const gid = SHEETS[key].gid;
-  try {
-    const resp = await fetch(csvUrl(gid));
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const text = await resp.text();
-    return parseCSV(text);
-  } catch(e) {
-    console.warn(`Sheet ${key} error:`, e);
-    return [];
-  }
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
 }
 
 // ──────────────────────────────────────────
-//  MAIN LOAD
+//  Fetch con doble proxy
+// ──────────────────────────────────────────
+async function fetchSheet(key) {
+  const gid = GIDS[key];
+  // Primer intento: corsproxy.io con ?url=
+  try {
+    const resp = await fetch(csvUrl(gid));
+    if (resp.ok) {
+      const text = await resp.text();
+      if (text && text.length > 10 && !text.includes('<!DOCTYPE')) {
+        return parseCSV(text);
+      }
+    }
+  } catch (e) {
+    console.warn(`corsproxy.io falló para ${key}, intentando allorigins...`);
+  }
+  // Segundo intento: allorigins
+  try {
+    const resp2 = await fetch(csvUrlFallback(gid));
+    if (resp2.ok) {
+      const text2 = await resp2.text();
+      if (text2 && text2.length > 10 && !text2.includes('<!DOCTYPE')) {
+        return parseCSV(text2);
+      }
+    }
+  } catch (e) {
+    console.warn(`allorigins también falló para ${key}`);
+  }
+  return [];
+}
+
+// ──────────────────────────────────────────
+//  CARGA PRINCIPAL
 // ──────────────────────────────────────────
 async function loadAllData() {
   const btn = document.getElementById('refresh-btn');
   btn.disabled = true;
-  btn.textContent = '↻ Actualizando...';
+  btn.textContent = '↻ Cargando...';
   document.getElementById('error-msg').style.display = 'none';
-  document.getElementById('status').textContent = 'Cargando datos del Google Sheets...';
+  document.getElementById('status').textContent = 'Conectando con Google Sheets...';
   setProgress(5);
 
-  const keys = Object.keys(SHEETS);
-  const total = keys.length;
+  const keys = Object.keys(GIDS);
   let done = 0;
 
-  const results = await Promise.allSettled(
-    keys.map(async k => {
-      const data = await fetchSheet(k);
-      rawData[k] = data;
-      done++;
-      setProgress(5 + Math.round((done/total)*90));
-    })
-  );
+  await Promise.all(keys.map(async k => {
+    const data = await fetchSheet(k);
+    rawData[k] = data;
+    done++;
+    setProgress(5 + Math.round((done / keys.length) * 88));
+    document.getElementById('status').textContent = `Cargando... (${done}/${keys.length} pestañas)`;
+  }));
 
   setProgress(98);
 
-  const now = new Date().toLocaleString('es-CO');
-  document.getElementById('last-update').textContent = 'Actualizado: ' + now;
-  document.getElementById('status').textContent = `✅ Datos cargados · ${now}`;
+  // Verificar si algo cargó
+  const totalRows = Object.values(rawData).reduce((s, a) => s + a.length, 0);
+  if (totalRows === 0) {
+    showError('No se pudieron cargar datos. Verifica que el Sheet sea público (Compartir → Cualquiera con el enlace → Lector) y recarga la página.');
+    document.getElementById('status').textContent = '❌ Error al cargar datos';
+  } else {
+    const now = new Date().toLocaleString('es-CO');
+    document.getElementById('last-update').textContent = now;
+    document.getElementById('status').textContent = `✅ ${totalRows} filas cargadas · ${now}`;
+    buildAdvisorFilter();
+    applyFilters();
+  }
 
-  applyFilters();
   setProgress(100);
   setTimeout(() => setProgress(0), 800);
-
   btn.disabled = false;
   btn.textContent = '↻ Actualizar';
 }
 
 // ──────────────────────────────────────────
-//  FILTERS
+//  FILTROS
 // ──────────────────────────────────────────
 function buildAdvisorFilter() {
   const advisors = new Set();
-  (rawData.call || []).forEach(r => { if(r['Asignado']) advisors.add(r['Asignado'].trim()); });
-  (rawData.advisor || []).forEach(r => {
-    // First row is header grouping per advisor — try to detect advisor names
-    const keys = Object.keys(r);
-    keys.forEach(k => { if(r[k] && r[k].trim() && isNaN(r[k])) {
-      if(k.toLowerCase().includes('fecha') || k.toLowerCase().includes('caso') || k.toLowerCase().includes('tipo') || k.toLowerCase().includes('monto')) return;
-    }});
+  (rawData.call || []).forEach(r => {
+    const a = (r['Asignado'] || '').trim();
+    if (a) advisors.add(a);
   });
   const sel = document.getElementById('filter-advisor');
   const current = sel.value;
@@ -470,197 +436,161 @@ function buildAdvisorFilter() {
   [...advisors].sort().forEach(a => {
     const opt = document.createElement('option');
     opt.value = a; opt.textContent = a;
-    if(a === current) opt.selected = true;
+    if (a === current) opt.selected = true;
     sel.appendChild(opt);
   });
 }
 
 function applyFilters() {
   const advisor = document.getElementById('filter-advisor').value;
-  const tipo = document.getElementById('filter-tipo').value;
-  buildAdvisorFilter();
-  renderKPIs();
-  renderCharts();
+  const resultado = document.getElementById('filter-resultado').value;
+  renderKPIs(advisor);
+  renderCharts(advisor);
   renderAdvisors();
-  renderTables(advisor, tipo);
+  renderTables(advisor, resultado);
 }
 
 // ──────────────────────────────────────────
-//  KPIs  (from Front sheet)
+//  KPIs
 // ──────────────────────────────────────────
-function renderKPIs() {
+function renderKPIs(advisorFilter) {
   const front = rawData.front || [];
-  // Find totals row (last non-empty row with "Total" label or last data row)
-  let totalRow = front.find(r => {
-    const vals = Object.values(r);
-    return vals.some(v => String(v).toLowerCase().includes('total'));
+  if (front.length === 0) return;
+
+  const headers = Object.keys(front[0] || {});
+
+  // Buscar fila de totales (última fila o fila con "total")
+  const dataRows = front.filter(r => {
+    const first = String(Object.values(r)[0] || '').toLowerCase();
+    return !first.includes('total') && !first.includes('hora');
   });
-  if (!totalRow) totalRow = front[front.length - 1] || {};
+  const totalRow = front.find(r =>
+    Object.values(r).some(v => String(v).toLowerCase().includes('total'))
+  ) || front[front.length - 1] || {};
 
-  const keys = Object.keys(totalRow);
-  // Try to map by column position (front sheet structure: Hora, Cant Total, Cash Total, Ticket, % Cobros, % CR 2 Min)
-  // Column indices: 0=Hora, 1=CantTotal, 2=CashTotal, 3=Ticket, 4=%Cobros, 5=%CR2Min
-  const vals = Object.values(totalRow);
-
-  // Safer: find by header name if possible
-  let cantTotal=0, cashTotal=0, ticket=0, cr2=0, acuerdos=0, calls=0, calls2=0;
-
-  // Front row data approach — use column names from header
-  const frontHeader = Object.keys(front[0] || {});
-  // Map by likely column names
-  const getCol = (row, ...candidates) => {
-    for(const c of candidates) {
-      const k = frontHeader.find(h => h.toLowerCase().includes(c.toLowerCase()));
-      if(k && row[k] !== undefined) return cleanNum(row[k]);
+  // Buscar columnas por nombre parcial
+  const findCol = (row, ...terms) => {
+    for (const term of terms) {
+      const key = headers.find(h => h.toLowerCase().includes(term.toLowerCase()));
+      if (key !== undefined && row[key] !== undefined && row[key] !== '') {
+        return cleanNum(row[key]);
+      }
     }
     return 0;
   };
 
-  front.forEach(row => {
-    cantTotal += getCol(row, 'Cant', 'cantidad');
-    cashTotal += getCol(row, 'Cash', 'cash total');
-    acuerdos  += getCol(row, 'Acuerdo');
-    calls     += getCol(row, 'Call') ;
-    calls2    += getCol(row, 'Call >=', 'Call>=');
+  // Sumar filas de datos para KPIs
+  let cantTotal = 0, cashTotal = 0, acuerdos = 0, mora = 0;
+  dataRows.forEach(r => {
+    cantTotal += findCol(r, 'cant');
+    cashTotal += findCol(r, 'cash');
+    acuerdos  += findCol(r, 'acuerdo');
+    mora      += findCol(r, 'mora');
   });
 
-  // Use totals row if has them
-  if(totalRow) {
-    cantTotal = getCol(totalRow, 'Cant') || cantTotal;
-    cashTotal = getCol(totalRow, 'Cash') || cashTotal;
-    acuerdos  = getCol(totalRow, 'Acuerdo') || acuerdos;
-    calls     = getCol(totalRow, 'Call') || calls;
-    calls2    = getCol(totalRow, 'Call >=', 'Call>=') || calls2;
-    ticket    = getCol(totalRow, 'Ticket');
-    cr2       = getCol(totalRow, '% CR 2', 'CR 2', 'CR2');
-  }
+  const ticket = cantTotal > 0 ? cashTotal / cantTotal : 0;
+  const cr2    = findCol(totalRow, 'cr 2', 'cr2', '% cr');
+  const calls  = rawData.call?.length || 0;
+  const calls2 = (rawData.call || []).filter(r => {
+    const dur = cleanNum(r['Duración'] || r['duracion'] || 0);
+    return dur >= 120;
+  }).length;
 
-  document.getElementById('kpi-casos').textContent     = fmtNum(cantTotal) || fmtNum(rawData.call?.length || 0);
+  document.getElementById('kpi-casos').textContent     = fmtNum(cantTotal) || fmtNum(calls);
   document.getElementById('kpi-cash').textContent      = fmt$(cashTotal);
-  document.getElementById('kpi-ticket').textContent    = '$' + (ticket || 0).toFixed(1);
+  document.getElementById('kpi-ticket').textContent    = '$' + Math.round(ticket);
   document.getElementById('kpi-cr2').textContent       = fmtPct(cr2);
   document.getElementById('kpi-acuerdos').textContent  = fmtNum(acuerdos);
-  document.getElementById('kpi-calls').textContent     = fmtNum(calls || rawData.call?.length || 0);
+  document.getElementById('kpi-calls').textContent     = fmtNum(calls);
   document.getElementById('kpi-calls2').textContent    = fmtNum(calls2);
   document.getElementById('kpi-escalados').textContent = fmtNum(rawData.escalado?.length || 0);
 }
 
 // ──────────────────────────────────────────
-//  CHARTS
+//  GRÁFICAS
 // ──────────────────────────────────────────
+const scaleOpts = {
+  x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(45,49,72,0.8)' } },
+  y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(45,49,72,0.8)' } }
+};
+const legendOpts = { labels: { color: '#94a3b8', font: { size: 11 }, boxWidth: 12 } };
+
 function destroyChart(id) {
-  if(charts[id]) { charts[id].destroy(); delete charts[id]; }
+  if (charts[id]) { charts[id].destroy(); delete charts[id]; }
 }
 
-const chartDefaults = {
-  responsive: true,
-  maintainAspectRatio: true,
-  plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
-  scales: {
-    x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#2d3148' } },
-    y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#2d3148' } }
-  }
-};
-
-function renderCharts() {
+function renderCharts(advisorFilter) {
   const front = rawData.front || [];
-  // Filter data rows (excluding total / header-like rows)
+
+  // Filas numéricas (hora por hora, excluir totales y encabezados)
   const dataRows = front.filter(r => {
-    const vals = Object.values(r);
-    const first = String(vals[0] || '');
-    return first && !isNaN(parseFloat(first)) && !first.toLowerCase().includes('total');
+    const first = String(Object.values(r)[0] || '');
+    const num = parseFloat(first);
+    return !isNaN(num) && num >= 8 && num <= 23;
   });
 
-  const labels = dataRows.map(r => {
-    const h = Object.values(r)[0];
-    return String(h || '').trim() + 'h';
-  });
+  const labels   = dataRows.map(r => Object.values(r)[0] + 'h');
+  const byIdx    = (idx) => dataRows.map(r => cleanNum(Object.values(r)[idx]));
 
-  const colByIdx = (rows, idx) => rows.map(r => cleanNum(Object.values(r)[idx]));
-
-  // Cash por hora (col 2)
-  destroyChart('cash-hora');
-  charts['cash-hora'] = new Chart(document.getElementById('chart-cash-hora'), {
+  // Cash por hora (col index 2)
+  destroyChart('cash');
+  charts['cash'] = new Chart(document.getElementById('chart-cash-hora'), {
     type: 'bar',
     data: {
       labels,
-      datasets: [{
-        label: 'Cash Total (USD)',
-        data: colByIdx(dataRows, 2),
-        backgroundColor: 'rgba(79,142,247,0.7)',
-        borderColor: '#4f8ef7',
-        borderWidth: 1,
-        borderRadius: 4
-      }]
+      datasets: [{ label: 'Cash USD', data: byIdx(2), backgroundColor: 'rgba(79,142,247,0.75)', borderColor: '#4f8ef7', borderWidth: 1, borderRadius: 4 }]
     },
-    options: { ...chartDefaults }
+    options: { responsive: true, maintainAspectRatio: true, plugins: { legend: legendOpts }, scales: scaleOpts }
   });
 
-  // % CR 2 Min por hora (col 5)
-  destroyChart('cr2-hora');
-  charts['cr2-hora'] = new Chart(document.getElementById('chart-cr2-hora'), {
+  // % CR 2 Min (col index 5)
+  destroyChart('cr2');
+  charts['cr2'] = new Chart(document.getElementById('chart-cr2-hora'), {
     type: 'line',
     data: {
       labels,
-      datasets: [{
-        label: '% CR 2 Min',
-        data: colByIdx(dataRows, 5),
-        borderColor: '#a855f7',
-        backgroundColor: 'rgba(168,85,247,0.1)',
-        tension: 0.4,
-        fill: true,
-        pointRadius: 4,
-        pointBackgroundColor: '#a855f7'
-      }]
+      datasets: [{ label: '% CR 2 Min', data: byIdx(5), borderColor: '#a855f7', backgroundColor: 'rgba(168,85,247,0.1)', tension: 0.4, fill: true, pointRadius: 3, pointBackgroundColor: '#a855f7' }]
     },
-    options: { ...chartDefaults }
+    options: { responsive: true, maintainAspectRatio: true, plugins: { legend: legendOpts }, scales: scaleOpts }
   });
 
-  // Acuerdos vs Mora (cols 6,7)
-  destroyChart('acuerdos-hora');
-  charts['acuerdos-hora'] = new Chart(document.getElementById('chart-acuerdos-hora'), {
+  // Acuerdos (col 6) vs Mora (col 7)
+  destroyChart('acuerdos');
+  charts['acuerdos'] = new Chart(document.getElementById('chart-acuerdos-hora'), {
     type: 'bar',
     data: {
       labels,
       datasets: [
-        { label: 'Acuerdos', data: colByIdx(dataRows, 6), backgroundColor: 'rgba(34,197,94,0.7)', borderRadius: 4 },
-        { label: 'Mora',     data: colByIdx(dataRows, 7), backgroundColor: 'rgba(239,68,68,0.6)', borderRadius: 4 }
+        { label: 'Acuerdos', data: byIdx(6), backgroundColor: 'rgba(34,197,94,0.75)', borderRadius: 4 },
+        { label: 'Mora',     data: byIdx(7), backgroundColor: 'rgba(239,68,68,0.65)', borderRadius: 4 }
       ]
     },
-    options: { ...chartDefaults, scales: { ...chartDefaults.scales, x: { ...chartDefaults.scales.x, stacked: false } } }
+    options: { responsive: true, maintainAspectRatio: true, plugins: { legend: legendOpts }, scales: scaleOpts }
   });
 
-  // Calls por hora — del sheet de calls
-  const callData = rawData.call || [];
-  const callsByHour = {};
-  callData.forEach(r => {
-    const fecha = r['Fecha'] || r['fecha'] || '';
-    // Extract hour from "01/05/2026 Call 01/05/2026 1:00pm -05"
-    const match = String(fecha).match(/(\d{1,2}):(\d{2})(am|pm)/i);
-    if(match) {
-      let h = parseInt(match[1]);
-      if(match[3].toLowerCase() === 'pm' && h !== 12) h += 12;
-      if(match[3].toLowerCase() === 'am' && h === 12) h = 0;
-      callsByHour[h] = (callsByHour[h] || 0) + 1;
+  // Calls por hora (desde rawData.call)
+  const callRows = rawData.call || [];
+  const byHour = {};
+  callRows.forEach(r => {
+    const fechaStr = String(r['Fecha'] || r['fecha'] || '');
+    const m = fechaStr.match(/(\d{1,2}):(\d{2})\s*(am|pm)/i);
+    if (m) {
+      let h = parseInt(m[1]);
+      if (m[3].toLowerCase() === 'pm' && h !== 12) h += 12;
+      if (m[3].toLowerCase() === 'am' && h === 12) h = 0;
+      byHour[h] = (byHour[h] || 0) + 1;
     }
   });
-  const callHours = Object.keys(callsByHour).sort((a,b) => a-b);
+  const callHours = Object.keys(byHour).map(Number).sort((a,b) => a-b);
 
-  destroyChart('calls-hora');
-  charts['calls-hora'] = new Chart(document.getElementById('chart-calls-hora'), {
+  destroyChart('calls');
+  charts['calls'] = new Chart(document.getElementById('chart-calls-hora'), {
     type: 'bar',
     data: {
       labels: callHours.map(h => h + 'h'),
-      datasets: [{
-        label: 'Calls',
-        data: callHours.map(h => callsByHour[h]),
-        backgroundColor: 'rgba(245,158,11,0.7)',
-        borderColor: '#f59e0b',
-        borderWidth: 1,
-        borderRadius: 4
-      }]
+      datasets: [{ label: 'Calls', data: callHours.map(h => byHour[h]), backgroundColor: 'rgba(245,158,11,0.75)', borderColor: '#f59e0b', borderWidth: 1, borderRadius: 4 }]
     },
-    options: { ...chartDefaults }
+    options: { responsive: true, maintainAspectRatio: true, plugins: { legend: legendOpts }, scales: scaleOpts }
   });
 }
 
@@ -668,65 +598,182 @@ function renderCharts() {
 //  ADVISORS
 // ──────────────────────────────────────────
 function renderAdvisors() {
-  // Parse advisor detail sheet — multi-table structure
-  // Each advisor block: row 0 = [name, empty..., total], row 1 = headers, row 2+ = data
-  const raw = rawData.advisor || [];
-  const advisorTotals = {};
+  const callRows = rawData.call || [];
+  const advisorMap = {};
 
-  // From calls sheet: group by Asignado
-  const calls = rawData.call || [];
-  calls.forEach(r => {
+  callRows.forEach(r => {
     const name = (r['Asignado'] || '').trim();
-    if(!name) return;
-    if(!advisorTotals[name]) advisorTotals[name] = { calls: 0, buzon: 0, monto: 0, casos: 0 };
-    advisorTotals[name].calls++;
-    if((r['Resultado de la llamada'] || '').toLowerCase().includes('buzon')) advisorTotals[name].buzon++;
+    if (!name) return;
+    if (!advisorMap[name]) advisorMap[name] = { calls: 0, buzon: 0, acuerdo: 0, manual: 0 };
+    advisorMap[name].calls++;
+    const res = (r['Resultado de la llamada'] || '').toLowerCase();
+    if (res.includes('buzon') || res.includes('buzón')) advisorMap[name].buzon++;
+    if (res.includes('acuerdo')) advisorMap[name].acuerdo++;
+    if (res.includes('manual')) advisorMap[name].manual++;
   });
 
-  // From advisor detail: monto y casos
-  // Structure: header rows with advisor name + total, then Fecha/Caso/Tipo/Monto columns
-  let currentAdvisor = null;
-  raw.forEach((row, i) => {
-    const cols = Object.values(row);
-    // Detect advisor name row: has a name and a dollar amount, rest empty
-    const nonEmpty = cols.filter(v => String(v).trim() !== '');
-    if(nonEmpty.length === 2) {
+  // Enriquecer con monto desde advisor detail
+  const advRaw = rawData.advisor || [];
+  let currentName = null;
+  advRaw.forEach(row => {
+    const vals = Object.values(row);
+    const nonEmpty = vals.filter(v => String(v).trim() !== '');
+    if (nonEmpty.length === 2) {
       const name = String(nonEmpty[0]).trim();
-      const montoStr = String(nonEmpty[1]).replace('$','').replace(',','');
-      const monto = parseFloat(montoStr);
-      if(name && !isNaN(monto) && monto > 100) {
-        currentAdvisor = name;
-        if(!advisorTotals[name]) advisorTotals[name] = { calls: 0, buzon: 0, monto: 0, casos: 0 };
-        advisorTotals[name].monto = monto;
-        return;
+      const monto = parseFloat(String(nonEmpty[1]).replace(/[$,]/g, ''));
+      if (name && !isNaN(monto) && monto > 10) {
+        currentName = name;
+        if (!advisorMap[name]) advisorMap[name] = { calls: 0, buzon: 0, acuerdo: 0, manual: 0 };
+        advisorMap[name].monto = monto;
       }
     }
-    if(currentAdvisor) {
-      const montoCol = cols[3]; // Monto USD is usually col 3
-      const m = parseFloat(String(montoCol || '').replace(',','.'));
-      if(!isNaN(m) && m > 0) advisorTotals[currentAdvisor].casos++;
-    }
   });
 
-  const sorted = Object.entries(advisorTotals).sort((a,b) => b[1].monto - a[1].monto);
-  const maxMonto = sorted.length ? sorted[0][1].monto : 1;
+  const sorted = Object.entries(advisorMap).sort((a, b) => (b[1].monto || 0) - (a[1].monto || 0));
+  if (sorted.length === 0) {
+    document.getElementById('advisor-grid').innerHTML = '<div class="kpi-card"><div class="empty-state">Sin datos de advisors</div></div>';
+    return;
+  }
 
+  const maxMonto = Math.max(...sorted.map(([,d]) => d.monto || 0), 1);
   const grid = document.getElementById('advisor-grid');
-  grid.innerHTML = '';
-  sorted.forEach(([name, data]) => {
-    const pct = maxMonto > 0 ? Math.round((data.monto / maxMonto) * 100) : 0;
-    const callEf = data.calls > 0 ? Math.round(((data.calls - data.buzon)/data.calls)*100) : 0;
-    grid.innerHTML += `
+  grid.innerHTML = sorted.map(([name, d]) => {
+    const pct = maxMonto > 0 ? Math.round(((d.monto || 0) / maxMonto) * 100) : 0;
+    const efPct = d.calls > 0 ? Math.round(((d.calls - d.buzon) / d.calls) * 100) : 0;
+    return `
       <div class="advisor-card">
         <div class="advisor-header">
           <div>
             <div class="advisor-name">👤 ${name}</div>
-            <div style="font-size:.72rem;color:var(--muted);margin-top:3px">${fmtNum(data.casos)} casos · ${fmtNum(data.calls)} calls · ${callEf}% ef.</div>
+            <div class="advisor-meta">${fmtNum(d.calls)} calls · ${efPct}% efectividad</div>
           </div>
-          <div class="advisor-total">${data.monto > 0 ? fmt$(data.monto) : '—'}</div>
+          <div class="advisor-total">${d.monto ? fmt$(d.monto) : '—'}</div>
         </div>
         <div class="advisor-bar"><div class="advisor-bar-fill" style="width:${pct}%"></div></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <span class="badge green">Calls: ${fmtNum(data.calls)}</span>
-          <span class="badge red">Buzón: ${fmtNum(data.buzon)}</span>
-          ${data.monto > 0 ? `<span class="badge blue">Total: ${fmt$(data.monto)}</span>` : ''}
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">
+          <span class="badge blue">Calls: ${fmtNum(d.calls)}</span>
+          <span class="badge green">Acuerdos: ${fmtNum(d.acuerdo)}</span>
+          <span class="badge red">Buzón: ${fmtNum(d.buzon)}</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ──────────────────────────────────────────
+//  TABLAS
+// ──────────────────────────────────────────
+function td(val) {
+  return `<td>${val !== undefined && val !== null && String(val).trim() !== '' ? String(val).trim() : '—'}</td>`;
+}
+
+function badgeResultado(val) {
+  const v = String(val || '').toLowerCase();
+  if (v.includes('acuerdo')) return `<span class="badge green">${val}</span>`;
+  if (v.includes('buzon') || v.includes('buzón')) return `<span class="badge yellow">${val}</span>`;
+  if (v.includes('manual')) return `<span class="badge blue">${val}</span>`;
+  return `<span class="badge purple">${val || '—'}</span>`;
+}
+
+function renderTables(advisorFilter, resultadoFilter) {
+  // CALLS
+  let callRows = rawData.call || [];
+  if (advisorFilter) callRows = callRows.filter(r => (r['Asignado'] || '').trim() === advisorFilter);
+  if (resultadoFilter) callRows = callRows.filter(r => (r['Resultado de la llamada'] || '').includes(resultadoFilter));
+  const tbodyCalls = document.getElementById('tbody-calls');
+  if (callRows.length === 0) {
+    tbodyCalls.innerHTML = '<tr><td colspan="6" class="empty-state">Sin registros</td></tr>';
+  } else {
+    tbodyCalls.innerHTML = callRows.slice(0, 500).map(r => `<tr>
+      ${td(r['Fecha'])}
+      ${td(r['Asignado'])}
+      ${td(r['Compañía/Est.'] || r['Compania'] || r['Compañía'])}
+      <td>${badgeResultado(r['Resultado de la llamada'])}</td>
+      ${td(r['Tipo de llamada'])}
+      ${td(r['Duración'] || r['Duracion'])}
+    </tr>`).join('');
+  }
+
+  // ESCALADOS
+  const escRows = rawData.escalado || [];
+  const tbodyEsc = document.getElementById('tbody-escalados');
+  if (escRows.length === 0) {
+    tbodyEsc.innerHTML = '<tr><td colspan="5" class="empty-state">Sin registros</td></tr>';
+  } else {
+    tbodyEsc.innerHTML = escRows.slice(0, 300).map(r => `<tr>
+      ${td(r['Fecha de apertura'] || r['Fecha/Hora de apertura'])}
+      ${td(r['Número del caso'])}
+      ${td(r['Id. del caso'])}
+      ${td(r['Propietario del caso'])}
+      ${td((r['Comentario del caso'] || r['Comentarios del caso'] || '').substring(0, 80))}
+    </tr>`).join('');
+  }
+
+  // ADELANTOS
+  const adelRows = rawData.adelanto || [];
+  const tbodyAdel = document.getElementById('tbody-adelantos');
+  if (adelRows.length === 0) {
+    tbodyAdel.innerHTML = '<tr><td colspan="6" class="empty-state">Sin registros</td></tr>';
+  } else {
+    tbodyAdel.innerHTML = adelRows.slice(0, 300).map(r => `<tr>
+      ${td(r['Fecha'])}
+      ${td(r['Número del caso'])}
+      ${td(r['ID Acuerdo de Pago'] || r['Acuerdo de Pago Id.'])}
+      ${td(r['Numero Pago'])}
+      ${td(r['Invoice: Invoice'] || r['Invoice'])}
+      ${td(r['Correo electrónico Web'] || r['Correo'])}
+    </tr>`).join('');
+  }
+
+  // ZUORA
+  const zuoraRows = rawData.zuora || [];
+  const tbodyZuora = document.getElementById('tbody-zuora');
+  if (zuoraRows.length === 0) {
+    tbodyZuora.innerHTML = '<tr><td colspan="5" class="empty-state">Sin registros</td></tr>';
+  } else {
+    tbodyZuora.innerHTML = zuoraRows.slice(0, 300).map(r => `<tr>
+      ${td(r['Fecha de apertura'] || r['Fecha/Hora de apertura'])}
+      ${td(r['Número del caso'])}
+      ${td(r['Id. del caso'])}
+      ${td(r['Motivos de no pago'])}
+      ${td(r['Motivos de no Adelanto'])}
+    </tr>`).join('');
+  }
+
+  // WC
+  const wcRows = rawData.wc || [];
+  const tbodyWC = document.getElementById('tbody-wc');
+  if (wcRows.length === 0) {
+    tbodyWC.innerHTML = '<tr><td colspan="5" class="empty-state">Sin registros</td></tr>';
+  } else {
+    tbodyWC.innerHTML = wcRows.slice(0, 300).map(r => `<tr>
+      ${td(r['Fecha de apertura'] || r['Fecha/Hora de apertura'])}
+      ${td(r['Número del caso'])}
+      ${td(r['Id. del caso'])}
+      ${td(r['Motivos de no Adelanto/Upgrade'])}
+      ${td(r['Motivos de no pago'])}
+    </tr>`).join('');
+  }
+
+  // ACUERDOS
+  const acRows = rawData.acuerdos || [];
+  const tbodyAc = document.getElementById('tbody-acuerdos');
+  if (acRows.length === 0) {
+    tbodyAc.innerHTML = '<tr><td colspan="5" class="empty-state">Sin registros</td></tr>';
+  } else {
+    tbodyAc.innerHTML = acRows.slice(0, 300).map(r => `<tr>
+      ${td(r['Fecha de modificación'] || r['Fecha modificación'])}
+      ${td(r['Modificado por'])}
+      ${td(r['Valor anterior'])}
+      ${td(r['Valor nuevo'])}
+      ${td(r['Acuerdo de Pago: Nombre del propietario'] || r['Propietario'])}
+    </tr>`).join('');
+  }
+}
+
+// ──────────────────────────────────────────
+//  INICIO
+// ──────────────────────────────────────────
+loadAllData();
+</script>
+</body>
+</html>
